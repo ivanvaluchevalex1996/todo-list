@@ -85,8 +85,8 @@ class App extends React.Component {
   };
 
   deleteItem = (id) => {
-    this.setState((state) => {
-      const now = state.todoData.filter((el) => el.id !== id);
+    this.setState(({ todoData }) => {
+      const now = todoData.filter((el) => el.id !== id);
       return {
         todoData: now,
       };

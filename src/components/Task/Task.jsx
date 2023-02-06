@@ -28,42 +28,44 @@ class Task extends React.Component {
       classStyle += "completed";
     }
 
+    if (isEditMode) {
+      return (
+        <input
+          autoFocus
+          className="editing"
+          value={text}
+          onChange={(e) => {
+            this.setState({
+              text: e.target.value,
+            });
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              this.setState({
+                isEditMode: !isEditMode,
+              });
+            }
+          }}
+        />
+      );
+    }
+
     return (
       <li className={classStyle}>
         <div className="view">
           <input className="toggle" type="checkbox" checked={done} onChange={onToggleDone} />
-          {isEditMode ? (
-            <input
-              autoFocus
-              className="editing"
-              value={text}
-              onChange={(e) => {
-                this.setState({
-                  text: e.target.value,
-                });
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  this.setState({
-                    isEditMode: !isEditMode,
-                  });
-                }
-              }}
-            />
-          ) : (
-            <label>
-              <span
-                className="description"
-                onClick={onToggleDone}
-                onKeyDown={onToggleDone}
-                role="button"
-                tabIndex="0"
-              >
-                {text}
-              </span>
-              <span className="created">{`created ${formatDistanceToNow(date)} ago`}</span>
-            </label>
-          )}
+          <label>
+            <span
+              className="description"
+              onClick={onToggleDone}
+              onKeyDown={onToggleDone}
+              role="button"
+              tabIndex="0"
+            >
+              {text}
+            </span>
+            <span className="created">{`created ${formatDistanceToNow(date)} ago`}</span>
+          </label>
           <div className="button">
             <button type="button" className="icon icon-edit" onClick={this.onEditClick} />
             <button type="button" className="icon icon-destroy" onClick={onDeleted} />
