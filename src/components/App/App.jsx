@@ -57,9 +57,9 @@ class App extends React.Component {
   onToggleDone = (id) => {
     this.setState(({ todoData }) => {
       todoData.map((el) => {
-        const oldItem = el;
-        if (oldItem.id === id) {
-          oldItem.done = !oldItem.done;
+        if (el.id === id) {
+          // eslint-disable-next-line no-param-reassign
+          el.done = !el.done;
         }
         return todoData;
       });
@@ -72,9 +72,9 @@ class App extends React.Component {
   onToggleEdit = (id) => {
     this.setState(({ todoData }) => {
       todoData.map((el) => {
-        const oldItem = el;
-        if (oldItem.id === id) {
-          oldItem.edit = !oldItem.edit;
+        if (el.id === id) {
+          // eslint-disable-next-line no-param-reassign
+          el.edit = !el.edit;
         }
         return todoData;
       });
