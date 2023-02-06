@@ -45,8 +45,7 @@ class App extends React.Component {
       const obj = App.createTodoItem(text.trim());
       if (obj.label !== "" && obj.label.length !== 0) {
         this.setState(({ todoData }) => {
-          const now = [...todoData];
-          now.push(obj);
+          const now = [...todoData, obj];
           return {
             todoData: now,
           };
@@ -57,32 +56,30 @@ class App extends React.Component {
 
   onToggleDone = (id) => {
     this.setState(({ todoData }) => {
-      const newArr = [...todoData];
-      newArr.map((el) => {
+      todoData.map((el) => {
         const oldItem = el;
         if (oldItem.id === id) {
           oldItem.done = !oldItem.done;
         }
-        return newArr;
+        return todoData;
       });
       return {
-        todoData: newArr,
+        todoData,
       };
     });
   };
 
   onToggleEdit = (id) => {
     this.setState(({ todoData }) => {
-      const newArr = [...todoData];
-      newArr.map((el) => {
+      todoData.map((el) => {
         const oldItem = el;
         if (oldItem.id === id) {
           oldItem.edit = !oldItem.edit;
         }
-        return newArr;
+        return todoData;
       });
       return {
-        todoData: newArr,
+        todoData,
       };
     });
   };
