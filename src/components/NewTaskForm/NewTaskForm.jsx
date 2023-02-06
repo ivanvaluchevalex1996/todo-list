@@ -25,7 +25,7 @@ class NewTaskForm extends React.Component {
 
   render() {
     const { label } = this.state;
-    console.log("1");
+
     return (
       <header className="header">
         <form className="header" onSubmit={this.onSubmit}>

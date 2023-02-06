@@ -41,14 +41,18 @@ class App extends React.Component {
   }
 
   addItem = (text) => {
-    const obj = App.createTodoItem(text);
-    this.setState(({ todoData }) => {
-      const now = [...todoData];
-      now.push(obj);
-      return {
-        todoData: now,
-      };
-    });
+    if (text.length !== 0 && text.length !== " ") {
+      const obj = App.createTodoItem(text.trim());
+      if (obj.label !== "" && obj.label.length !== 0) {
+        this.setState(({ todoData }) => {
+          const now = [...todoData];
+          now.push(obj);
+          return {
+            todoData: now,
+          };
+        });
+      }
+    }
   };
 
   onToggleDone = (id) => {
