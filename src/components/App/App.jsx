@@ -27,6 +27,12 @@ class App extends React.Component {
     }
   }
 
+  // функция чтобы не прописывать дважды одно и то же по типу el.done = !el.done, el.edit = !el.edit
+  // в стейте нельзя менять старй массив, пользуемся map, он создает новый
+  static onToggleProperty(arr, id, propName) {
+    return arr.map((el) => (el.id === id ? { ...el, [propName]: !el[propName] } : el));
+  }
+
   constructor(props) {
     super(props);
 
@@ -55,33 +61,15 @@ class App extends React.Component {
   };
 
   onToggleDone = (id) => {
-    this.setState(({ todoData }) => {
-      todoData.map((el) => {
-        if (el.id === id) {
-          // eslint-disable-next-line no-param-reassign
-          el.done = !el.done;
-        }
-        return todoData;
-      });
-      return {
-        todoData,
-      };
-    });
+    this.setState(({ todoData }) => ({
+      todoData: App.onToggleProperty(todoData, id, "done"),
+    }));
   };
 
   onToggleEdit = (id) => {
-    this.setState(({ todoData }) => {
-      todoData.map((el) => {
-        if (el.id === id) {
-          // eslint-disable-next-line no-param-reassign
-          el.edit = !el.edit;
-        }
-        return todoData;
-      });
-      return {
-        todoData,
-      };
-    });
+    this.setState(({ todoData }) => ({
+      todoData: App.onToggleProperty(todoData, id, "edit"),
+    }));
   };
 
   deleteItem = (id) => {
