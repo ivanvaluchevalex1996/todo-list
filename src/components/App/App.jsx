@@ -48,7 +48,7 @@ class App extends React.Component {
 
   addItem = (text) => {
     if (text.trim()) {
-      const obj = App.createTodoItem(text.trim());
+      const obj = App.createTodoItem(text);
       this.setState(({ todoData }) => {
         const now = [...todoData, obj];
         return {
