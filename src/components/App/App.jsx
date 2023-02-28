@@ -4,7 +4,7 @@ import NewTaskForm from "../NewTaskForm/NewTaskForm";
 import Footer from "../Footer/Footer";
 import "./App.css";
 import { nanoid } from "nanoid";
-
+// test
 class App extends React.Component {
   static createTodoItem = (label) => ({
     label,
