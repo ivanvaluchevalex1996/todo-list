@@ -1,45 +1,32 @@
-/* eslint-disable react/destructuring-assignment */
-import React from "react";
+import React, { useState } from "react";
 import "./NewTaskForm.css";
 
-class NewTaskForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { label: "" };
-  }
+function NewTaskForm(props) {
+  const { addItem } = props;
+  const [label, setLabel] = useState("");
 
-  onSubmit = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    const { addItem } = this.props;
-    addItem(this.state.label);
-    this.setState({
-      label: "",
-    });
+    addItem(label);
+    setLabel("");
   };
 
-  onLableChange = (e) => {
-    this.setState({
-      label: e.target.value,
-    });
+  const onLableChange = (e) => {
+    setLabel(e.target.value);
   };
-
-  render() {
-    const { label } = this.state;
-
-    return (
-      <header className="header">
-        <form className="header" onSubmit={this.onSubmit}>
-          <h1>todos</h1>
-          <input
-            className="new-todo"
-            placeholder="What needs to be done?"
-            onChange={this.onLableChange}
-            value={label}
-          />
-        </form>
-      </header>
-    );
-  }
+  return (
+    <header className="header">
+      <form className="header" onSubmit={onSubmit}>
+        <h1>todos</h1>
+        <input
+          className="new-todo"
+          placeholder="What needs to be done?"
+          onChange={onLableChange}
+          value={label}
+        />
+      </form>
+    </header>
+  );
 }
 
 export default NewTaskForm;

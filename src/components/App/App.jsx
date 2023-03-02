@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import TaskList from "../TaskList/TaskList";
 import NewTaskForm from "../NewTaskForm/NewTaskForm";
 import Footer from "../Footer/Footer";
 import "./App.css";
 import { nanoid } from "nanoid";
-// test
-class App extends React.Component {
-  static createTodoItem = (label) => ({
+
+function App() {
+  const createTodoItem = (label) => ({
     label,
     done: false,
     edit: false,
@@ -14,7 +14,7 @@ class App extends React.Component {
     date: new Date(),
   });
 
-  static filterTask(items, allActiveDone) {
+  const filterTask = (items, allActiveDone) => {
     switch (allActiveDone) {
       case "all":
         return items;
@@ -25,99 +25,72 @@ class App extends React.Component {
       default:
         return items;
     }
-  }
+  };
 
-  // функция чтобы не прописывать дважды одно и то же по типу el.done = !el.done, el.edit = !el.edit
-  // в стейте нельзя менять старй массив, пользуемся map, он создает новый
-  static onToggleProperty(arr, id, propName) {
-    return arr.map((el) => (el.id === id ? { ...el, [propName]: !el[propName] } : el));
-  }
+  const onToggleProperty = (arr, id, propName) =>
+    arr.map((el) => (el.id === id ? { ...el, [propName]: !el[propName] } : el));
 
-  constructor(props) {
-    super(props);
+  const [data, setData] = useState([
+    createTodoItem("Drink"),
+    createTodoItem("Sing"),
+    createTodoItem("Ping"),
+  ]);
 
-    this.state = {
-      todoData: [
-        App.createTodoItem("Drink"),
-        App.createTodoItem("Sing"),
-        App.createTodoItem("Ping"),
-      ],
-      filterState: "",
-    };
-  }
+  // const [filterState, setFilterState] = [""];
+  const [filtered, setFiltered] = useState("all");
 
-  addItem = (text) => {
+  const addItem = (text) => {
     if (text.trim()) {
-      const obj = App.createTodoItem(text);
-      this.setState(({ todoData }) => {
-        const now = [...todoData, obj];
-        return {
-          todoData: now,
-        };
-      });
+      const obj = createTodoItem(text);
+      const now = [...data, obj];
+      setData([...now]);
     }
   };
 
-  onToggleDone = (id) => {
-    this.setState(({ todoData }) => ({
-      todoData: App.onToggleProperty(todoData, id, "done"),
-    }));
+  const deleteItem = (id) => {
+    const now = data.filter((el) => el.id !== id);
+    setData(now);
   };
 
-  onToggleEdit = (id) => {
-    this.setState(({ todoData }) => ({
-      todoData: App.onToggleProperty(todoData, id, "edit"),
-    }));
+  const onToggleDone = (id) => {
+    setData(onToggleProperty(data, id, "done"));
+  };
+  const onToggleEdit = (id) => {
+    setData(onToggleProperty(data, id, "edit"));
   };
 
-  deleteItem = (id) => {
-    this.setState(({ todoData }) => {
-      const now = todoData.filter((el) => el.id !== id);
-      return {
-        todoData: now,
-      };
-    });
+  const onFilterChange = (name) => {
+    setFiltered(name);
   };
 
-  onFilterChange = (filterState) => {
-    this.setState({ filterState });
+  const clearCompleted = () => {
+    const now = data.filter((el) => !el.done);
+    setData(now);
   };
 
-  clearCompleted = () => {
-    this.setState(({ todoData }) => {
-      const now = todoData.filter((el) => !el.done);
-      return {
-        todoData: now,
-      };
-    });
-  };
-
-  render() {
-    const { todoData, filterState } = this.state;
-    const visibleItems = App.filterTask(todoData, filterState);
-    const leftItems = todoData.filter((el) => !el.done).length;
-    return (
-      <section className="todoapp">
-        <NewTaskForm addItem={this.addItem} />
-        <section className="main">
-          <TaskList
-            todos={visibleItems}
-            onDeleted={this.deleteItem}
-            onToggleDone={this.onToggleDone}
-            onToggleEdit={this.onToggleEdit}
-            addItem={this.addItem}
-          />
-          <Footer
-            filtered={filterState}
-            onFilterChange={this.onFilterChange}
-            count={leftItems}
-            clearCompleted={this.clearCompleted}
-            todos={visibleItems}
-          />
-        </section>
+  const visibleItems = filterTask(data, filtered);
+  const leftItems = data.filter((el) => !el.done).length;
+  return (
+    <section className="todoapp">
+      <NewTaskForm addItem={addItem} />
+      <section className="main">
+        <TaskList
+          todos={visibleItems}
+          onDeleted={deleteItem}
+          onToggleDone={onToggleDone}
+          onToggleEdit={onToggleEdit}
+          addItem={addItem}
+        />
+        <Footer
+          filtered={filtered}
+          onFilterChange={onFilterChange}
+          count={leftItems}
+          clearCompleted={clearCompleted}
+          todos={visibleItems}
+        />
       </section>
-    );
-  }
+    </section>
+  );
 }
-// asdgit
+
 export default App;

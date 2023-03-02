@@ -10,7 +10,6 @@ function Footer({ filtered, onFilterChange, count, clearCompleted }) {
       <div className="filters">
         <TaskFilter filtered={filtered} onFilterChange={onFilterChange} />
       </div>
-      {/* <button type="button" onClick={() => clearCompleted(todos)}> */}
       <button type="button" onClick={clearCompleted}>
         Clear completed
       </button>
