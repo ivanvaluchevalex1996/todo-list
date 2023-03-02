@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import "./Task.css";
 import PropTypes from "prop-types";
+import Timer from "../Timer/Timer";
 
 function Task(props) {
   const { date, onDeleted, onToggleDone, done, label } = props;
@@ -48,6 +49,7 @@ function Task(props) {
           >
             {text}
           </span>
+          <Timer />
           <span className="created">{`created ${formatDistanceToNow(date)} ago`}</span>
         </label>
         <div className="button">
