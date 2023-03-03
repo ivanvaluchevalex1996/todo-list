@@ -32,7 +32,7 @@ function App() {
     arr.map((el) => (el.id === id ? { ...el, [propName]: !el[propName] } : el));
 
   const [data, setData] = useState([
-    createTodoItem("Edit Tasks"),
+    createTodoItem("Edits Tasks"),
     createTodoItem("Active Task"),
     createTodoItem("Completed Task"),
   ]);
