@@ -4,7 +4,7 @@ import NewTaskForm from "../NewTaskForm/NewTaskForm";
 import Footer from "../Footer/Footer";
 import "./App.css";
 import { nanoid } from "nanoid";
-
+//
 function App() {
   const createTodoItem = (label, minute = 1, second = 5) => ({
     label,
