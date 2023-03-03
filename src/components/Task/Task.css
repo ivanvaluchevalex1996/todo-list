@@ -1,6 +1,6 @@
 .todo-list li {
   position: relative;
-  font-size: 24px;
+  font-size: 18px;
   border-bottom: 1px solid #ededed;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .todo-list li label .created {
-  font-size: 13px;
+  font-size: 11px;
   color: gray;
 }
 
@@ -72,6 +72,7 @@
   font-weight: 400;
   color: #4d4d4d;
   cursor: pointer;
+  max-width: 160px;
 }
 
 .todo-list li.completed label .description {

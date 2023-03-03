@@ -11,8 +11,14 @@
 
 .icon-pause:after {
   content: "⏸";
+  position: relative;
+  right: -48px;
+  top: -13px;
 }
 
 .icon-play:after {
   content: "▶";
+  position: relative;
+  right: -54px;
+  top: -9px;
 }

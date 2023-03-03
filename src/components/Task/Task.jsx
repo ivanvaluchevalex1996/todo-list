@@ -49,7 +49,6 @@ function Task(props) {
           >
             {text}
           </span>
-          {/* <Timer minut={1} /> */}
           <Timer minute={Number(minute)} second={Number(second)} />
           <span className="created">{`created ${formatDistanceToNow(date)} ago`}</span>
         </label>

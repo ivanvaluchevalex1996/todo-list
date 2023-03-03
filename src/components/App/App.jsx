@@ -32,14 +32,15 @@ function App() {
     arr.map((el) => (el.id === id ? { ...el, [propName]: !el[propName] } : el));
 
   const [data, setData] = useState([
-    createTodoItem("Drink"),
-    createTodoItem("Sing"),
-    createTodoItem("Ping"),
+    createTodoItem("Editing Task"),
+    createTodoItem("Active Task"),
+    createTodoItem("Completed Task"),
   ]);
+
   const [filtered, setFiltered] = useState("all");
 
   const addItem = (text, minute, second) => {
-    if (text.trim()) {
+    if (text.trim() && minute && second) {
       const obj = createTodoItem(text, minute, second);
       const now = [...data, obj];
       setData([...now]);
