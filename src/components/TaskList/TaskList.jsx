@@ -6,6 +6,8 @@ function TaskList({ todos, onDeleted, onToggleDone, addItem }) {
   const elem = todos.map((item) => (
     <Task
       key={item.id}
+      minute={item.minute}
+      second={item.second}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...item}
       onDeleted={() => {
@@ -17,6 +19,7 @@ function TaskList({ todos, onDeleted, onToggleDone, addItem }) {
       addItem={addItem}
     />
   ));
+
   return <ul className="todo-list">{elem}</ul>;
 }
 

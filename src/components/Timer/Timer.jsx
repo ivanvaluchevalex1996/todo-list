@@ -1,28 +1,24 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from "react";
 import "./Timer.css";
 import getPadTime from "../../utils/getPadTime";
 
-function Timer() {
-  const [timeLeft, setTimeLeft] = useState(100);
+function Timer(props) {
+  const allTime = 60 * props.minute + props.second;
+  const [timeLeft, setTimeLeft] = useState(allTime);
   const [isCounting, setIsCounting] = useState(false);
   const minutes = getPadTime(Math.floor(timeLeft / 60));
   const seconds = getPadTime(timeLeft - minutes * 60);
   useEffect(() => {
     const interval = setInterval(
-      () => isCounting && setTimeLeft((timeleft) => (timeleft >= 1 ? timeleft - 1 : 1)),
+      () => isCounting && setTimeLeft((timeleft) => (timeleft >= 1 ? timeleft - 1 : 0)),
       1000
     );
+    if (timeLeft === 0) setIsCounting(false);
     return () => {
       clearInterval(interval);
     };
-  }, [isCounting]);
-  //   useEffect(() => {
-  //     // eslint-disable-next-line max-len
-  //     const interval = setInterval(() => isCounting && setTimeLeft((timeleft) => (timeleft >= 1 ? timeleft - 1 : 0)), 1000);
-  //     return () => {
-  //       clearInterval(interval);
-  //     };
-  //   }, [isCounting]);
+  }, [timeLeft, isCounting]);
 
   const handleStart = () => {
     setIsCounting(true);
@@ -30,14 +26,7 @@ function Timer() {
   const handleStop = () => {
     setIsCounting(false);
   };
-  //   const handleReset = () => {
-  //     setIsCounting(false);
-  //     setTimeLeft(0);
-  //   };
-  //   const handleReset = () => {
-  //     setIsCounting(false);
-  //     setTimeLeft(2 * 60);
-  //   };
+
   return (
     <div className="app">
       <div className="timer">

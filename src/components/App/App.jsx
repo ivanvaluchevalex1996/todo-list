@@ -6,14 +6,15 @@ import "./App.css";
 import { nanoid } from "nanoid";
 
 function App() {
-  const createTodoItem = (label) => ({
+  const createTodoItem = (label, minute = 1, second = 5) => ({
     label,
     done: false,
     edit: false,
     id: nanoid(),
     date: new Date(),
+    minute,
+    second,
   });
-
   const filterTask = (items, allActiveDone) => {
     switch (allActiveDone) {
       case "all":
@@ -35,13 +36,11 @@ function App() {
     createTodoItem("Sing"),
     createTodoItem("Ping"),
   ]);
-
-  // const [filterState, setFilterState] = [""];
   const [filtered, setFiltered] = useState("all");
 
-  const addItem = (text) => {
+  const addItem = (text, minute, second) => {
     if (text.trim()) {
-      const obj = createTodoItem(text);
+      const obj = createTodoItem(text, minute, second);
       const now = [...data, obj];
       setData([...now]);
     }

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Timer from "../Timer/Timer";
 
 function Task(props) {
-  const { date, onDeleted, onToggleDone, done, label } = props;
+  const { date, onDeleted, onToggleDone, done, label, minute, second } = props;
   const [isEditMode, setIsEditMode] = useState(false);
   const [text, setText] = useState(label);
   const onEditClick = () => {
@@ -49,7 +49,8 @@ function Task(props) {
           >
             {text}
           </span>
-          <Timer />
+          {/* <Timer minut={1} /> */}
+          <Timer minute={Number(minute)} second={Number(second)} />
           <span className="created">{`created ${formatDistanceToNow(date)} ago`}</span>
         </label>
         <div className="button">
