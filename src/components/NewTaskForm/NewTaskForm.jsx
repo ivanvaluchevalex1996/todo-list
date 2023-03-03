@@ -11,6 +11,7 @@ function NewTaskForm(props) {
     event.preventDefault();
     addItem(label, minute, second);
     setLabel("");
+    event.target.reset();
   };
 
   const onLabelChange = (e) => {
